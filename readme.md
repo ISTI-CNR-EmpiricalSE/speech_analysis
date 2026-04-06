@@ -1,120 +1,71 @@
 # Speech analysis
 
 ## Overview
-Lo scopo di tale progetto è quello di trovare delle correlazioni, a partire da 
-delle interviste, tra il giudizio espresso da intervistati ed intervistatori 
-sulla qualità di quest'ultime, e le features estrapolate dai relativi file audio .wav .
+The purpose of this project is to find correlations, starting from interviews between the judgment expressed by interviewees and interviewers on the quality of the latter, and the features extracted from the relative .wav audio files
 
 ## Implementazione
 
-Le classi che compongono tale progetto sono le seguenti:
-1. La classe **Main**, principale classe del programma, dalla quale è possibile
-selezionare i possibili comandi
-2. La classe **AudioManipulation**, la quale ha il compito di estrapolare 
-le feature di un file audio
-3. La classe **DataAnalysis**, tramite la quale calcolare le correlazioni
-tra le feature estratte e i relativi questionari.
+The classes that make up this project are the following:
+-The **Main** class, the main class of the program, from which it is possible to select the available commands
+-The **AudioManipulation** class, which has the task of extracting features from an audio file
+-The **DataAnalysis** class, through which to calculate the correlations between the extracted features and the relative questionnaires.
 
-Basta eseguire la classe **Main** per gestire il programma attraverso 
-il terminale, o digitare _help_ per visualizzare tutti i possibili comandi
+Simply run the **Main** class to manage the program through the terminal, or type _help_ to view all possible commands.
 
 ![alt-text](Imgs/Img1.png "optional-title")
 
-Il programma si divide logicamente in due parti: una prima, volta a estrapolare 
-le feature relative ai file audio; una seconda, volta a trovare delle correlazioni
-tra le feature estrapolate e i questionari che rappresentano la qualità 
-delle interviste.
+The program is logically divided into two parts: a first one, aimed at extracting the features related to the audio files; a second one, aimed at finding correlations between the extracted features and the questionnaires representing the quality of the interviews.
 
-### Estrazione manuale delle feature
+### Manual feature extraction
 
-È possibile calcolare le feature di un singolo file audio nella seguente maniera:
-1. Digitare il comando _path_ ed inserire il percorso del file audio 
-(relativo se si trova nella stessa cartella o assoluto se altrove)
-2. Digitare il comando _features_, ed eventualmente il comando _help_features_,
-rispettivamente per aprire il sottomenù delle possibili funzioni per l'analisi 
-dei file audio e per visualizzarne l'elenco
+It is possible to calculate the features of a single audio file in the following manner:
+-Type the command path and enter the path of the audio file (relative if it is in the same folder or absolute if elsewhere)
+-Type the command features, and eventually the command help_features, respectively to open the submenu of possible functions for audio file analysis and to view the list
+
 
 ![alt-text](Imgs/Img2.png "optional-title")
 
-È possibile calcolare le feature una alla volta, inserendo il comando
-relativo, o tutte insieme attraverso il comando _all_.\
-Per ogni feature verrà inoltre esportata un'immagine che ne rappresenta il 
-risultato all'interno di un grafico. Tutti i grafici sono contenuti e catalogati all'interno della
-cartella _Visualization_ (si crea automaticamente se non esiste).\
+It is possible to calculate features one at a time by entering the relative command, or all at once using the all command.
+For each feature, an image representing the result within a graph will also be exported. All graphs are contained and categorized within the Visualization folder (which is created automatically if it does not exist). 
 
-Particolare è il funzionamento del comando _diarization_, il quale ha il compito di esportare
-la diarizzazione dei file audio. 
-All'interno della cartella _Speaker_ (si crea automaticamente se non esiste) vengono
-infatti inseriti i file audio divisi in cartelle 
-(ciascuna cartella conterrà tutte e solo le frasi espresse da uno dei due parlanti) 
-ed una visualizzazione grafica dei momenti in cui i parlanti interagiscono per tutta l'intervista.
-Tale feature verrà rappresentata nel dataset esportando il tempo di interazione dei due parlanti
-all'interno dell'invervista
+The operation of the diarization command is unique, as it is responsible for exporting the diarization of the audio files.
+Inside the Speaker folder (created automatically if it does not exist), the audio files are placed into separate folders (each folder will contain all and only the sentences spoken by one of the two speakers), along with a graphical visualization of the moments in which the speakers interact throughout the interview. This feature will be represented in the dataset by exporting the interaction time of the two speakers during the interview. 
+It is also worth noting that the command responsible for exporting the vector representing the features associated with an audio file is the average command.
 
-È bene poi sottolineare che il responsabile dell'esportazione
-del **vettore** che rappresenta le feature 
-associate ad un file audio è il comando _average_.
-Il funzionamento di tale comando si compone dei seguenti passagi:
-1. Controlla se tutte le feature sono già state calcolate (in alternativa
-chiede di digitare prima il comando _all_).
-2. Dal momento che ogni feature è rappresentata da una matrice, o più precisamente
-da una lista di liste, viene calcolata e concatenata 
-in un vettore la media di ogni singola lista  
-3. Vengono concatenati tutti i vettori che rappresentano le feature ed esportati
-all'interno di un file excel denominato "features.xlsx",
-contenuto a sua volta all'interno della cartella _Excel features_ 
-(la cartella verrà creata automaticamente se non esiste ancora).
+The operation of this command consists of the following steps:
+- It checks if all features have already been calculated (otherwise, it asks to type the all command first).
+- Since each feature is represented by a matrix, or more precisely by a list of lists, the average of each individual list is calculated and concatenated into a vector.
+- All the vectors representing the features are concatenated and exported into an Excel file named "features.xlsx", which is in turn contained within the Excel features folder (the folder will be created automatically if it does not yet exist). 
 
-Rispetto all'esportazione delle feature è bene precisare che:
-1. Ogni file audio è identificato da una riga che ne rappresenta il nome e le componenti
-delle feature
-2. Nel caso in cui il file "features.xlsx" esiste già, gli viene semplicemente aggiunta
-una riga.
-3. L'ordine con il quale tali componenti vengono esportate è lo stesso per ogni file
-audio, così da poter visualizzare, per ogni colonna, il rispettivo 
-valore di una feature per ogni intervista. Tale è il motivo per il quale prima del
-comando _average_ risulta fondamentale calcolare il comando _all_.
-
-### Estrazione automatica delle feature
-
-In alternativa è possibile automatizzare il processo creando una cartella
-denominata _Interviews_ nel percorso corrente, ed inserire tutte le interviste
-da analizzare nella stessa.
-In seguito a ciò basta eseguire la classe **Main** e digitare il comando 
-_excel_features_ 
-
-### Calcolo delle correlazioni tra i dati
-
-Per mostrare il calcolo delle correlazioni tra i questionari somministrati agli intervistati
-e agli intervistatori sulla qualità delle interviste, e le feature estrapolate
-dai relativi file audio, è necessario, una volta eseguita la classe **Main**
-digitare il comando _data_analysis_.
-Per il funzionamento di tale script risulta necessario importare nel path corrente
-la cartella _Analysis dataset_ qui fornita.\
-Tale comando ha il compito di calcolare la **correlazione lineare** tra ogni colonna
-del dataset delle feature estrapolate dai file audio (ogni colonna rappresenta
-l'i-esima feature di tutti i file audio analizzati) e ogni colonna del dataset 
-relativo ai questionari di valutazione (ogni colonna di tale dataset rappresenta
-le risposte di tutti gli intervistati ed intervistatori alla stessa domanda).\
-Tale correlazione lineare è stata calcolata prima dividendo le interviste in due sottogruppi
-(denominati _A1A2_, _B1B2_), poi per l'intero dataset.\
-Le correlazioni sono state calcolate a partire da diverse 
-versioni di tali questionari di valutazione:
-1. Una versione integrale, contenente tutte le domande di intervistati ed intervistatori
-2. Una versione contenente tutte le domande ma solamente con le 
-risposte degli intervistati
-3. Una versione contenente un sottoinsieme delle domande
-4. Una versione contenente un sottoinsieme delle domande 
-ma solamente con le risposte degli intervistati
-
-Tale script mostrerà sul terminale solamente le correlazioni con indice _rho_ maggiore
-di 0.4 o minore di -0.4, ed il suo relativo _p-value_.
+Regarding the feature export, it is important to specify that:
+- Each audio file is identified by a row representing its name and the feature components.
+- If the "features.xlsx" file already exists, a row is simply added to it.
+- The order in which these components are exported is the same for every audio file, so that for each column, the respective feature value for each interview can be viewed. This is why it is fundamental to run the all command before the average command.
 
 
-## Librerie esterne
+### Automatic feature extraction
 
-Il programma è stato creato all'interno di un'ambiente di sviluppo di Anaconda.
-È la libreria _pyannote_ a gestire il processo di diarizzazione dei file audio
+Alternatively, it is possible to automate the process by creating a folder named _Interviews_ in the current path and placing all the interviews to be analyzed within it.
+Following this, simply run the **Main** class and type the command _excel_features_.
+
+### Calculation of data correlations
+
+To show the calculation of the correlations between the questionnaires administered to the interviewees and interviewers regarding the quality of the interviews, and the features extracted from the relative audio files, it is necessary—once the Main class is running—to type the command data_analysis.
+For this script to function, it is necessary to import the provided Analysis dataset folder into the current path.
+This command is responsible for calculating the linear correlation between each column of the dataset of features extracted from the audio files (each column represents the i-th feature of all analyzed audio files) and each column of the dataset related to the evaluation questionnaires (each column of this dataset represents the responses of all interviewees and interviewers to the same question).
+This linear correlation was calculated first by dividing the interviews into two subgroups (named A1A2, B1B2), and then for the entire dataset.
+The correlations were calculated starting from different versions of these evaluation questionnaires:
+- A full version, containing all questions from both interviewees and interviewers
+- A version containing all questions but only with the responses from the interviewees
+- A version containing a subset of the questions
+- A version containing a subset of the questions but only with the responses from the interviewees
+This script will display on the terminal only the correlations with a rho index greater than 0.4 or less than -0.4, along with its relative p-value.
+
+
+## External libraries
+
+The program was created within an Anaconda development environment.
+The pyannote library manages the diarization process of the audio files:
 
 ```python
 conda create -n pyannote python=3.8
@@ -127,13 +78,13 @@ conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 -c pytorch
 pip install pyannote.audio
 ```
 
-Quest'ultimo si avvale inoltre dell'utilizzo delle seguenti librerie:
-1. _openpyxl_ per interagire con i dataset di excel
-2. _librosa_ e  _numpy_ per il calcolo delle feature
-3. _scipy_ per il calcolo delle correlazioni 
-4. _pandas_ per la costruzione di dataframe
-5. _pydub_ per l'esportazione dei file audio segmentati
-6. _matplotlib_ per la creazione dei grafici associati alle feature estratte
+The latter also makes use of the following libraries:
+- openpyxl to interact with Excel datasets
+- librosa and numpy for feature calculation
+- scipy for correlation calculation
+- pandas for dataframe construction
+- pydub for exporting segmented audio files
+- matplotlib for creating graphs associated with the extracted features
 
 
 
